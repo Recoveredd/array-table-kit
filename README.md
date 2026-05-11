@@ -8,6 +8,14 @@ Convert arrays of objects into clean Markdown and HTML tables.
 
 Try the live demo: [array-table-kit.wasta-wocket.fr](https://array-table-kit.wasta-wocket.fr/).
 
+## Package quality
+
+- TypeScript types are generated from the source.
+- ESM-only package with no runtime dependencies.
+- Marked as side-effect free for bundlers.
+- Tested on Node.js 20 and 22 with GitHub Actions.
+- Works in Node.js, docs tooling and static site pipelines.
+
 ## Install
 
 ```bash

@@ -3,6 +3,7 @@
   "version": "0.2.2",
   "description": "Convert arrays of objects into clean Markdown and HTML tables.",
   "type": "module",
+  "sideEffects": false,
   "license": "MIT",
   "author": "Recoveredd",
   "repository": {
@@ -38,6 +39,9 @@
   ],
   "publishConfig": {
     "access": "public"
+  },
+  "engines": {
+    "node": ">=20"
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json && node scripts/fix-bin-mode.mjs",
