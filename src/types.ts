@@ -6,6 +6,7 @@ export interface ColumnDefinition<TRecord = Record<string, unknown>> {
   key: string;
   header?: string;
   align?: TableAlign;
+  path?: string;
   accessor?: (row: TRecord, index: number) => CellValue;
   format?: (value: CellValue, row: TRecord, index: number) => CellValue;
 }
@@ -36,6 +37,7 @@ export interface ResolvedColumn<TRecord = Record<string, unknown>> {
   key: string;
   header: string;
   align: TableAlign;
+  path: string;
   accessor?: (row: TRecord, index: number) => CellValue;
   format?: (value: CellValue, row: TRecord, index: number) => CellValue;
 }

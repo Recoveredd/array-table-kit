@@ -54,6 +54,37 @@ arrayToMarkdownTable(rows, {
 });
 ```
 
+Use `path` when you want a stable column id that differs from the source field:
+
+```ts
+arrayToMarkdownTable(rows, {
+  columns: [
+    { key: 'score', path: 'stats.score', header: 'Score', align: 'right' }
+  ]
+});
+```
+
+Computed columns can use `accessor`:
+
+```ts
+arrayToMarkdownTable(rows, {
+  columns: [
+    { key: 'name' },
+    {
+      key: 'summary',
+      header: 'Summary',
+      accessor: (row) => `${row.name} scored ${row.stats.score}`
+    }
+  ]
+});
+```
+
+Primitive arrays are supported and render as a `value` column:
+
+```ts
+arrayToMarkdownTable(['one', 'two']);
+```
+
 ## Options
 
 | Option | Default | Description |

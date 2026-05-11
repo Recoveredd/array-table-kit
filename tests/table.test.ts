@@ -31,6 +31,37 @@ describe('array-table-kit', () => {
     ].join('\n'));
   });
 
+  it('uses column alignment when no global Markdown alignment is set', () => {
+    expect(arrayToMarkdownTable(records, {
+      columns: [
+        { key: 'name', header: 'Name' },
+        { key: 'stats.score', header: 'Score', align: 'right' }
+      ]
+    })).toBe([
+      '| Name  | Score |',
+      '| ----- | ----: |',
+      '| Ada   |    98 |',
+      '| Grace |    94 |'
+    ].join('\n'));
+  });
+
+  it('supports a separate path for display-safe column keys', () => {
+    expect(arrayToHtmlTable(records, {
+      columns: [
+        { key: 'score', path: 'stats.score', header: 'Score', align: 'right' }
+      ]
+    })).toContain('<td data-key="score" data-align="right">98</td>');
+  });
+
+  it('does not throw on circular cell values', () => {
+    const circular: Record<string, unknown> = { name: 'Loop' };
+    circular.self = circular;
+
+    expect(arrayToMarkdownTable([circular], {
+      columns: ['name', 'self']
+    })).toContain('[Circular]');
+  });
+
   it('escapes Markdown and HTML output', () => {
     const unsafe = [{ name: '<script>', note: 'a | b' }];
 
@@ -52,7 +83,7 @@ describe('array-table-kit', () => {
   });
 
   it('handles primitive arrays through the CLI-friendly value column shape', () => {
-    expect(arrayToMarkdownTable([{ value: 'one' }, { value: 'two' }])).toBe([
+    expect(arrayToMarkdownTable(['one', 'two'])).toBe([
       '| value |',
       '| ----- |',
       '| one   |',

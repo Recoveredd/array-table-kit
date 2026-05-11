@@ -1,6 +1,6 @@
 export { arrayToHtmlTable, toHtmlTable } from './html.js';
 export { arrayToMarkdownTable, toMarkdownTable } from './markdown.js';
-export { createTableModel } from './model.js';
+export { createTableModel, normalizeRecords } from './model.js';
 export type {
   CellValue,
   ColumnDefinition,

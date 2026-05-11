@@ -4,9 +4,17 @@ import type { HtmlTableOptions } from './types.js';
 
 export function arrayToHtmlTable<TRecord extends Record<string, unknown>>(
   records: TRecord[],
+  options?: HtmlTableOptions<TRecord>
+): string;
+export function arrayToHtmlTable<TRecord extends Record<string, unknown>>(
+  records: unknown[],
+  options?: HtmlTableOptions<Record<string, unknown>>
+): string;
+export function arrayToHtmlTable<TRecord extends Record<string, unknown>>(
+  records: unknown[],
   options: HtmlTableOptions<TRecord> = {}
 ): string {
-  const model = createTableModel(records, options);
+  const model = createTableModel(records, options as HtmlTableOptions<Record<string, unknown>>);
 
   if (model.columns.length === 0) {
     return '';

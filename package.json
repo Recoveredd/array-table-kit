@@ -1,6 +1,6 @@
 {
   "name": "array-table-kit",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Convert arrays of objects into clean Markdown and HTML tables.",
   "type": "module",
   "license": "MIT",

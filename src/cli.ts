@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 import { stdin } from 'node:process';
 import { arrayToHtmlTable } from './html.js';
 import { arrayToMarkdownTable } from './markdown.js';
+import { normalizeRecords } from './model.js';
 
 type Format = 'markdown' | 'html';
 
@@ -17,13 +18,7 @@ async function main(): Promise<void> {
     throw new Error('array-table-kit expects a top-level JSON array.');
   }
 
-  const records = parsed.map((item) => {
-    if (item && typeof item === 'object' && !Array.isArray(item)) {
-      return item as Record<string, unknown>;
-    }
-
-    return { value: item };
-  });
+  const records = normalizeRecords(parsed);
 
   const output = format === 'html'
     ? arrayToHtmlTable(records)

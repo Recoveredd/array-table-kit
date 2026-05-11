@@ -1,18 +1,26 @@
 import { escapeMarkdownCell } from './escape.js';
 import { createTableModel } from './model.js';
-import type { MarkdownTableOptions, TableAlign } from './types.js';
+import type { MarkdownTableOptions, ResolvedColumn, TableAlign } from './types.js';
 
 export function arrayToMarkdownTable<TRecord extends Record<string, unknown>>(
   records: TRecord[],
+  options?: MarkdownTableOptions<TRecord>
+): string;
+export function arrayToMarkdownTable<TRecord extends Record<string, unknown>>(
+  records: unknown[],
+  options?: MarkdownTableOptions<Record<string, unknown>>
+): string;
+export function arrayToMarkdownTable<TRecord extends Record<string, unknown>>(
+  records: unknown[],
   options: MarkdownTableOptions<TRecord> = {}
 ): string {
-  const model = createTableModel(records, options);
+  const model = createTableModel(records, options as MarkdownTableOptions<Record<string, unknown>>);
 
   if (model.columns.length === 0) {
     return '';
   }
 
-  const alignments = resolveAlignments(model.columns.length, options.align);
+  const alignments = resolveAlignments(model.columns, options.align);
   const header = model.columns.map((column) => escapeMarkdownCell(column.header));
   const rows = model.rows.map((row) => row.cells.map((cell) => escapeMarkdownCell(cell.text)));
   const widths = measureWidths([header, ...rows]);
@@ -26,13 +34,16 @@ export function arrayToMarkdownTable<TRecord extends Record<string, unknown>>(
 
 export const toMarkdownTable = arrayToMarkdownTable;
 
-function resolveAlignments(count: number, align: TableAlign | TableAlign[] | undefined): TableAlign[] {
-  return Array.from({ length: count }, (_, index) => {
+function resolveAlignments(
+  columns: Array<ResolvedColumn<Record<string, unknown>>>,
+  align: TableAlign | TableAlign[] | undefined
+): TableAlign[] {
+  return columns.map((column, index) => {
     if (Array.isArray(align)) {
-      return align[index] ?? 'left';
+      return align[index] ?? column.align;
     }
 
-    return align ?? 'left';
+    return align ?? column.align;
   });
 }
 
