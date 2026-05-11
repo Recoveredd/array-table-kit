@@ -45,6 +45,41 @@ const html = arrayToHtmlTable(rows, {
 
 String values are escaped before rendering HTML.
 
+## Ecosystem recipes
+
+`array-table-kit` is useful after parsing or extracting rows from other data sources.
+
+Convert terminal output to Markdown:
+
+```ts
+import { arrayToMarkdownTable } from 'array-table-kit';
+import { parseTerminalTable } from 'terminal-table-kit';
+
+const rows = parseTerminalTable(kubectlOutput, {
+  keyStyle: 'camel'
+});
+
+const markdown = arrayToMarkdownTable(rows);
+```
+
+Use `object-path-kit` when user-provided paths need bracket notation or validation:
+
+```ts
+import { getPath } from 'object-path-kit';
+
+const cityPath = 'customer["billing.address"].city';
+
+arrayToMarkdownTable(rows, {
+  columns: [
+    {
+      key: 'city',
+      header: 'City',
+      accessor: (row) => getPath(row, cityPath, '') as string
+    }
+  ]
+});
+```
+
 ## Columns
 
 ```ts
