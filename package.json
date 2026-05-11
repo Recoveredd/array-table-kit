@@ -1,0 +1,56 @@
+{
+  "name": "array-table-kit",
+  "version": "0.1.0",
+  "description": "Convert arrays of objects into clean Markdown and HTML tables.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Recoveredd",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Recoveredd/array-table-kit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Recoveredd/array-table-kit/issues"
+  },
+  "homepage": "https://github.com/Recoveredd/array-table-kit#readme",
+  "keywords": [
+    "array",
+    "table",
+    "markdown",
+    "html",
+    "json",
+    "typescript"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "bin": {
+    "array-table-kit": "./dist/cli.js"
+  },
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json && node scripts/fix-bin-mode.mjs",
+    "demo:build": "vite build --outDir demo-dist",
+    "demo:dev": "vite --host 127.0.0.1",
+    "prepack": "npm run build",
+    "test": "vitest run --config vitest.config.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.12",
+    "vitest": "^4.0.8"
+  }
+}
