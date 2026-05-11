@@ -1,5 +1,7 @@
 # array-table-kit
 
+[![CI](https://github.com/Recoveredd/array-table-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/Recoveredd/array-table-kit/actions/workflows/ci.yml)
+
 Convert arrays of objects into clean Markdown and HTML tables.
 
 `array-table-kit` is a small TypeScript utility for reports, README generation, admin exports, docs tooling and static sites. It has no runtime dependencies and works without a frontend framework.
