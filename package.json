@@ -41,8 +41,6 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json && node scripts/fix-bin-mode.mjs",
-    "demo:build": "vite build --outDir demo-dist",
-    "demo:dev": "vite --host 127.0.0.1",
     "prepack": "npm run build",
     "test": "vitest run --config vitest.config.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit"
@@ -50,7 +48,6 @@
   "devDependencies": {
     "@types/node": "^24.10.1",
     "typescript": "^5.9.3",
-    "vite": "^7.1.12",
     "vitest": "^4.0.8"
   }
 }
