@@ -28,7 +28,7 @@
     }
   },
   "bin": {
-    "array-table-kit": "./dist/cli.js"
+    "array-table-kit": "dist/cli.js"
   },
   "types": "./dist/index.d.ts",
   "files": [
