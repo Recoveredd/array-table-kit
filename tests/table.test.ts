@@ -53,6 +53,40 @@ describe('array-table-kit', () => {
     })).toContain('<td data-key="score" data-align="right">98</td>');
   });
 
+  it('resolves dot paths when flattening is disabled', () => {
+    expect(arrayToMarkdownTable(records, {
+      flatten: false,
+      columns: [
+        { key: 'score', path: 'stats.score', header: 'Score' }
+      ]
+    })).toBe([
+      '| Score |',
+      '| ----- |',
+      '| 98    |',
+      '| 94    |'
+    ].join('\n'));
+  });
+
+  it('normalizes invalid alignment values from JavaScript callers', () => {
+    expect(arrayToHtmlTable(records, {
+      columns: [
+        { key: 'name', align: 'banana' as never }
+      ]
+    })).toContain('<td data-key="name" data-align="left">Ada</td>');
+
+    expect(arrayToMarkdownTable(records, {
+      align: 'banana' as never,
+      columns: [
+        { key: 'name', align: 'right' }
+      ]
+    })).toBe([
+      '|  name |',
+      '| ----: |',
+      '|   Ada |',
+      '| Grace |'
+    ].join('\n'));
+  });
+
   it('does not throw on circular cell values', () => {
     const circular: Record<string, unknown> = { name: 'Loop' };
     circular.self = circular;
@@ -60,6 +94,35 @@ describe('array-table-kit', () => {
     expect(arrayToMarkdownTable([circular], {
       columns: ['name', 'self']
     })).toContain('[Circular]');
+  });
+
+  it('flattens shared nested objects without marking them as circular references', () => {
+    const shared = { score: 42 };
+
+    const model = createTableModel([
+      { primary: shared, secondary: shared }
+    ]);
+
+    expect(model.columns.map((column) => column.key)).toEqual(['primary.score', 'secondary.score']);
+    expect(model.rows[0]?.cells.map((cell) => cell.text)).toEqual(['42', '42']);
+  });
+
+  it('throws a clear error for non-array input', () => {
+    expect(() => arrayToMarkdownTable({ name: 'Ada' } as unknown as unknown[])).toThrow(
+      'array-table-kit expects an array.'
+    );
+    expect(() => createTableModel({ name: 'Ada' } as unknown as unknown[])).toThrow(
+      'array-table-kit expects an array.'
+    );
+  });
+
+  it('treats null options like omitted options for JavaScript callers', () => {
+    expect(arrayToMarkdownTable([{ name: 'Ada' }], null as never)).toBe([
+      '| name |',
+      '| ---- |',
+      '| Ada  |'
+    ].join('\n'));
+    expect(arrayToHtmlTable([{ name: 'Ada' }], null as never)).toContain('<td data-key="name" data-align="left">Ada</td>');
   });
 
   it('escapes Markdown and HTML output', () => {

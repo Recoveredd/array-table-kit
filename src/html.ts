@@ -12,20 +12,21 @@ export function arrayToHtmlTable<TRecord extends Record<string, unknown>>(
 ): string;
 export function arrayToHtmlTable<TRecord extends Record<string, unknown>>(
   records: unknown[],
-  options: HtmlTableOptions<TRecord> = {}
+  options: HtmlTableOptions<TRecord> | null = {}
 ): string {
-  const model = createTableModel(records, options as HtmlTableOptions<Record<string, unknown>>);
+  const settings = options ?? {};
+  const model = createTableModel(records, settings as HtmlTableOptions<Record<string, unknown>>);
 
   if (model.columns.length === 0) {
     return '';
   }
 
   const attributes = [
-    options.tableId ? `id="${escapeHtml(options.tableId)}"` : '',
-    options.tableClassName ? `class="${escapeHtml(options.tableClassName)}"` : ''
+    settings.tableId ? `id="${escapeHtml(settings.tableId)}"` : '',
+    settings.tableClassName ? `class="${escapeHtml(settings.tableClassName)}"` : ''
   ].filter(Boolean).join(' ');
   const openTable = attributes ? `<table ${attributes}>` : '<table>';
-  const caption = options.caption ? `<caption>${escapeHtml(options.caption)}</caption>` : '';
+  const caption = settings.caption ? `<caption>${escapeHtml(settings.caption)}</caption>` : '';
   const head = `<thead><tr>${model.columns.map((column) => (
     `<th data-key="${escapeHtml(column.key)}" data-align="${column.align}">${escapeHtml(column.header)}</th>`
   )).join('')}</tr></thead>`;

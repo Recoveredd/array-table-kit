@@ -12,15 +12,16 @@ export function arrayToMarkdownTable<TRecord extends Record<string, unknown>>(
 ): string;
 export function arrayToMarkdownTable<TRecord extends Record<string, unknown>>(
   records: unknown[],
-  options: MarkdownTableOptions<TRecord> = {}
+  options: MarkdownTableOptions<TRecord> | null = {}
 ): string {
-  const model = createTableModel(records, options as MarkdownTableOptions<Record<string, unknown>>);
+  const settings = options ?? {};
+  const model = createTableModel(records, settings as MarkdownTableOptions<Record<string, unknown>>);
 
   if (model.columns.length === 0) {
     return '';
   }
 
-  const alignments = resolveAlignments(model.columns, options.align);
+  const alignments = resolveAlignments(model.columns, settings.align);
   const header = model.columns.map((column) => escapeMarkdownCell(column.header));
   const rows = model.rows.map((row) => row.cells.map((cell) => escapeMarkdownCell(cell.text)));
   const widths = measureWidths([header, ...rows]);
@@ -40,11 +41,19 @@ function resolveAlignments(
 ): TableAlign[] {
   return columns.map((column, index) => {
     if (Array.isArray(align)) {
-      return align[index] ?? column.align;
+      return normalizeAlign(align[index], column.align);
     }
 
-    return align ?? column.align;
+    return normalizeAlign(align, column.align);
   });
+}
+
+function normalizeAlign(value: unknown, fallback: TableAlign): TableAlign {
+  if (value === 'left' || value === 'center' || value === 'right') {
+    return value;
+  }
+
+  return fallback;
 }
 
 function measureWidths(rows: string[][]): number[] {
