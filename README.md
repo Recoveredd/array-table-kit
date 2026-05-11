@@ -90,6 +90,21 @@ arrayToMarkdownTable(rows, {
 });
 ```
 
+Use `object-key-paths` to discover fields from an unknown object and then render a quick path inventory:
+
+```ts
+import { arrayToMarkdownTable } from 'array-table-kit';
+import { getPathEntries } from 'object-key-paths';
+
+const markdown = arrayToMarkdownTable(getPathEntries(payload), {
+  columns: [
+    { key: 'path', header: 'Path' },
+    { key: 'depth', header: 'Depth', align: 'right' },
+    { key: 'isLeaf', header: 'Leaf' }
+  ]
+});
+```
+
 ## Columns
 
 ```ts
