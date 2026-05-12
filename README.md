@@ -6,7 +6,7 @@ Convert arrays of objects into clean Markdown and HTML tables.
 
 `array-table-kit` is a small TypeScript utility for reports, README generation, admin exports, docs tooling and static sites. It has no runtime dependencies and works without a frontend framework.
 
-Try the live demo: [packages.wasta-wocket.fr/array-table-kit](https://packages.wasta-wocket.fr/array-table-kit).
+Demo: [packages.wasta-wocket.fr/array-table-kit/](https://packages.wasta-wocket.fr/array-table-kit/)
 
 ## Package quality
 
