@@ -1,12 +1,14 @@
 # array-table-kit
 
+[![npm version](https://img.shields.io/npm/v/array-table-kit.svg)](https://www.npmjs.com/package/array-table-kit)
+[![License: MPL-2.0](https://img.shields.io/badge/license-MPL--2.0-blue.svg)](LICENSE)
 [![CI](https://github.com/Recoveredd/array-table-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/Recoveredd/array-table-kit/actions/workflows/ci.yml)
 
 Convert arrays of objects into clean Markdown and HTML tables.
 
 `array-table-kit` is a small TypeScript utility for reports, README generation, admin exports, docs tooling and static sites. It has no runtime dependencies and works without a frontend framework.
 
-Demo: [packages.wasta-wocket.fr/array-table-kit/](https://packages.wasta-wocket.fr/array-table-kit/)
+Links: [Demo](https://packages.wasta-wocket.fr/array-table-kit/) · [npm](https://www.npmjs.com/package/array-table-kit) · [GitHub](https://github.com/Recoveredd/array-table-kit)
 
 ## Package quality
 
