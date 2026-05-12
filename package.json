@@ -4,7 +4,7 @@
   "description": "Convert arrays of objects into clean Markdown and HTML tables.",
   "type": "module",
   "sideEffects": false,
-  "license": "MIT",
+  "license": "MPL-2.0",
   "author": "Recoveredd",
   "repository": {
     "type": "git",

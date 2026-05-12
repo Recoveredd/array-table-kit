@@ -182,3 +182,7 @@ The CLI expects a top-level JSON array. Primitive array items are wrapped in a `
 ## Why
 
 `array-to-table` is useful but old and focused on simple Markdown output. `array-table-kit` keeps the tiny utility spirit while adding TypeScript types, HTML output, safer escaping, nested object flattening, explicit columns and a small CLI.
+
+## License
+
+MPL-2.0
