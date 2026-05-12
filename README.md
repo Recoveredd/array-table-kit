@@ -105,6 +105,16 @@ const markdown = arrayToMarkdownTable(getPathEntries(payload), {
 });
 ```
 
+Use `json-csv-kit` when the same rows need a downloadable CSV export:
+
+```ts
+import { arrayToMarkdownTable } from 'array-table-kit';
+import { jsonToCsv } from 'json-csv-kit';
+
+const markdown = arrayToMarkdownTable(rows);
+const csv = jsonToCsv(rows);
+```
+
 ## Columns
 
 ```ts
