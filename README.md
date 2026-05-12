@@ -157,6 +157,8 @@ Primitive arrays are supported and render as a `value` column:
 arrayToMarkdownTable(['one', 'two']);
 ```
 
+Readonly arrays and `as const` data are accepted by the TypeScript API, which keeps fixtures and generated data easy to pass directly.
+
 ## Options
 
 | Option | Default | Description |

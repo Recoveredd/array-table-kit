@@ -18,11 +18,11 @@ type ResolvedTableOptions<TRecord extends Record<string, unknown>> =
   Required<Pick<TableOptions<TRecord>, 'emptyValue' | 'flatten' | 'maxDepth' | 'sortColumns'>> & TableOptions<TRecord>;
 
 export function createTableModel<TRecord extends Record<string, unknown>>(
-  records: TRecord[],
+  records: readonly TRecord[],
   options?: TableOptions<TRecord>
 ): TableModel<TRecord>;
 export function createTableModel<TRecord extends Record<string, unknown>>(
-  records: unknown[],
+  records: readonly unknown[],
   options?: TableOptions<Record<string, unknown>>
 ): TableModel<Record<string, unknown>>;
 export function createTableModel<TRecord extends Record<string, unknown>>(
@@ -57,7 +57,7 @@ export function createTableModel<TRecord extends Record<string, unknown>>(
   return { columns, rows };
 }
 
-export function normalizeRecords(records: unknown[]): Array<Record<string, unknown>>;
+export function normalizeRecords(records: readonly unknown[]): Array<Record<string, unknown>>;
 export function normalizeRecords(records: unknown): Array<Record<string, unknown>> {
   return assertRecordsArray(records).map((record) => {
     if (isPlainRecord(record)) {
@@ -239,7 +239,7 @@ function isIndexable(value: unknown): value is Record<string, unknown> {
   return Boolean(value) && typeof value === 'object';
 }
 
-function assertRecordsArray(records: unknown): unknown[] {
+function assertRecordsArray(records: unknown): readonly unknown[] {
   if (!Array.isArray(records)) {
     throw new TypeError('array-table-kit expects an array.');
   }

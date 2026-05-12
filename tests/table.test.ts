@@ -153,4 +153,15 @@ describe('array-table-kit', () => {
       '| two   |'
     ].join('\n'));
   });
+
+  it('accepts readonly arrays from typed callers', () => {
+    const readonlyRows = [
+      { name: 'Ada', score: 98 },
+      { name: 'Grace', score: 94 }
+    ] as const;
+
+    expect(arrayToMarkdownTable(readonlyRows)).toContain('| Ada   | 98    |');
+    expect(arrayToHtmlTable(readonlyRows)).toContain('<td data-key="score" data-align="left">94</td>');
+    expect(createTableModel(readonlyRows).rows).toHaveLength(2);
+  });
 });

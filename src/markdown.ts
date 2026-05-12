@@ -3,15 +3,15 @@ import { createTableModel } from './model.js';
 import type { MarkdownTableOptions, ResolvedColumn, TableAlign } from './types.js';
 
 export function arrayToMarkdownTable<TRecord extends Record<string, unknown>>(
-  records: TRecord[],
+  records: readonly TRecord[],
   options?: MarkdownTableOptions<TRecord>
 ): string;
 export function arrayToMarkdownTable<TRecord extends Record<string, unknown>>(
-  records: unknown[],
+  records: readonly unknown[],
   options?: MarkdownTableOptions<Record<string, unknown>>
 ): string;
 export function arrayToMarkdownTable<TRecord extends Record<string, unknown>>(
-  records: unknown[],
+  records: readonly unknown[],
   options: MarkdownTableOptions<TRecord> | null = {}
 ): string {
   const settings = options ?? {};

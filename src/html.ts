@@ -3,15 +3,15 @@ import { createTableModel } from './model.js';
 import type { HtmlTableOptions } from './types.js';
 
 export function arrayToHtmlTable<TRecord extends Record<string, unknown>>(
-  records: TRecord[],
+  records: readonly TRecord[],
   options?: HtmlTableOptions<TRecord>
 ): string;
 export function arrayToHtmlTable<TRecord extends Record<string, unknown>>(
-  records: unknown[],
+  records: readonly unknown[],
   options?: HtmlTableOptions<Record<string, unknown>>
 ): string;
 export function arrayToHtmlTable<TRecord extends Record<string, unknown>>(
-  records: unknown[],
+  records: readonly unknown[],
   options: HtmlTableOptions<TRecord> | null = {}
 ): string {
   const settings = options ?? {};
