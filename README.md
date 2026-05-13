@@ -15,6 +15,7 @@ Links: [Demo](https://packages.wasta-wocket.fr/array-table-kit/) · [npm](https:
 - TypeScript types are generated from the source.
 - ESM-only package with no runtime dependencies.
 - Marked as side-effect free for bundlers.
+- CI runs `npm ci`, `typecheck`, `build`, and `test`.
 - Tested on Node.js 20 and 22 with GitHub Actions.
 - Works in Node.js, docs tooling and static site pipelines.
 
